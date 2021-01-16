@@ -1,18 +1,32 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity, FlatList
 } from "react-native";
 
+import {Ionicons, MaterialIcons} from "@expo/vector-icons"
+
 export default function App() {
+  // Adicionando Lista das Tarefas
+  const [task, setTask] = useState([ 'Rafael', 'Carol', 'Thanos', 'Hanna'])
+  const [neTask, setNeTask] = useState('')
+
+
   return (
+    // View da Tela
     <>
       <View style={styles.container}>
         <View style={styles.Body}>
-          <Text>Primeiro projeto expo!</Text>
+          <FlatList 
+          style={styles.FlatList}
+          data={task}
+          keyExtractor={item => item.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => <Text>{item}</Text>}
+          />
         </View>
         <View style={styles.Form}>
           <TextInput 
@@ -22,7 +36,9 @@ export default function App() {
           placeholder="Ädicione uma tarefa"
           maxLength={25}
           />
-          <TouchableOpacity style={styles.Button} />
+          <TouchableOpacity style={styles.Button}>
+            <Ionicons name="ios-add" size={25} color="#fff"/>
+          </TouchableOpacity>
         </View>
       </View>
     </>
@@ -69,4 +85,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginLeft: 10,
   },
+  FlatList: {
+    flex: 1,
+    marginTop: 5,
+
+  }
 });
